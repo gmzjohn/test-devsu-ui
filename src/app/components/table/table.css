@@ -1,0 +1,49 @@
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.dynamic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: sans-serif;
+  text-align: left;
+}
+
+.dynamic-table th,
+.dynamic-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.dynamic-table thead tr {
+  background-color: #3498db;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.dynamic-table tbody tr {
+  background-color: #f3f3f3;
+}
+
+.dynamic-table tbody tr:nth-of-type(even) {
+  background-color: #e7e7e7;
+}
+
+.dynamic-table tbody tr:hover {
+  background-color: #d1d1d1;
+  cursor: pointer;
+}
+
+.dynamic-table tbody tr:last-of-type {
+  border-bottom: 2px solid #3498db;
+}
+
+.actions-cell {
+  display: flex;
+  gap: 8px;
+}
