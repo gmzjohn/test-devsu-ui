@@ -1,7 +1,6 @@
 .dashboard-container {
   display: flex;
-  font-family: sans-serif;
-  height: 100vh;
+  height: 100vh
 }
 
 .sidebar {
