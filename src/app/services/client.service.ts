@@ -17,4 +17,12 @@ export class ClientService {
   getClients() {
     return this.clients.asReadonly();
   }
+
+  addClient(client: Omit<Client, 'id'>) {
+    const newClient = {
+      ...client,
+      id: this.clients().length + 1,
+    };
+    this.clients.update((clients) => [...clients, newClient]);
+  }
 }
