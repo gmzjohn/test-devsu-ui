@@ -3,15 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
-
-
-export interface Account {
-  id: number;
-  account_number: number;
-  account_type: string;
-  balance: number;
-  status: boolean;
-}
+import { Account } from '../../services/account.service';
 
 @Component({
   selector: 'app-accounts',
