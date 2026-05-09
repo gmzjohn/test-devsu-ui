@@ -1,9 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Column } from './types';
+import { EditButton } from '../edit-button/edit-button';
+import { DeleteButton } from '../delete-button/delete-button';
 
 @Component({
   selector: 'app-dynamic-table',
   standalone: true,
+  imports: [EditButton, DeleteButton],
   templateUrl: './table.html',
   styleUrls: ['./table.css'],
 })
