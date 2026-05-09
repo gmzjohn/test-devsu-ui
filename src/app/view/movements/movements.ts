@@ -1,16 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
-
-export interface Movement {
-  id: number;
-  date: string;
-  movement_type: string;
-  amount: number;
-  balance: number;
-}
+import { Movement, MovementService } from '../../services/movement.service';
 
 @Component({
   selector: 'app-movements',
@@ -20,6 +13,7 @@ export interface Movement {
   styleUrl: './movements.css',
 })
 export class Movements {
+  private movementService = inject(MovementService);
   title = 'Movimientos';
 
   movementColumns: Column<Movement>[] = [
@@ -29,4 +23,6 @@ export class Movements {
     { header: 'Monto', accessor: 'amount' },
     { header: 'Balance', accessor: 'balance' },
   ];
+
+  movementData = this.movementService.getMovements();
 }
