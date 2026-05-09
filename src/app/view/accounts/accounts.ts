@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
-import { Account } from '../../services/account.service';
+import { Account, AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-accounts',
@@ -12,6 +12,7 @@ import { Account } from '../../services/account.service';
   styleUrl: './accounts.css',
 })
 export class Accounts {
+  private accountService = inject(AccountService);
   title = "Cuentas"
 
   accountColumns: Column<Account>[] = [
@@ -21,4 +22,6 @@ export class Accounts {
     { header: 'Balance', accessor: 'balance' },
     { header: 'Status', accessor: 'status' }
   ];
+
+  accountData = this.accountService.getAccounts();
 }
