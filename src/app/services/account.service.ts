@@ -25,4 +25,18 @@ export class AccountService {
     };
     this.accounts.update((accounts) => [...accounts, newAccount]);
   }
+
+  updateAccount(id: number, changes: Omit<Account, 'id'>) {
+    this.accounts.update((accounts) =>
+      accounts.map((a) => (a.id === id ? { ...a, ...changes } : a))
+    );
+  }
+
+  deleteAccount(id: number) {
+    this.accounts.update((accounts) => accounts.filter((a) => a.id !== id));
+  }
+
+  getAccountById(id: number): Account | undefined {
+    return this.accounts().find((a) => a.id === id);
+  }
 }

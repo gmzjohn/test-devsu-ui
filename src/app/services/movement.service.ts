@@ -25,4 +25,18 @@ export class MovementService {
     };
     this.movements.update((movements) => [...movements, newMovement]);
   }
+
+  updateMovement(id: number, changes: Omit<Movement, 'id'>) {
+    this.movements.update((movements) =>
+      movements.map((m) => (m.id === id ? { ...m, ...changes } : m))
+    );
+  }
+
+  deleteMovement(id: number) {
+    this.movements.update((movements) => movements.filter((m) => m.id !== id));
+  }
+
+  getMovementById(id: number): Movement | undefined {
+    return this.movements().find((m) => m.id === id);
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-edit-button',
@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
   templateUrl: './edit-button.html',
   styleUrl: './edit-button.css',
 })
-export class EditButton { }
+export class EditButton {
+  @Output() edit = new EventEmitter<void>();
+
+  onClick() {
+    this.edit.emit();
+  }
+}

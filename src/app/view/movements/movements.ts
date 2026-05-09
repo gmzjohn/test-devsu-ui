@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
 import { Movement, MovementService } from '../../services/movement.service';
@@ -14,6 +14,7 @@ import { Movement, MovementService } from '../../services/movement.service';
 })
 export class Movements {
   private movementService = inject(MovementService);
+  private router = inject(Router);
   title = 'Movimientos';
 
   movementColumns: Column<Movement>[] = [
@@ -25,4 +26,12 @@ export class Movements {
   ];
 
   movementData = this.movementService.getMovements();
+
+  onEdit(id: number) {
+    this.router.navigate(['/movements/edit', id]);
+  }
+
+  onDelete(id: number) {
+    this.movementService.deleteMovement(id);
+  }
 }

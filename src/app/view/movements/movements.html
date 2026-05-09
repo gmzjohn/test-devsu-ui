@@ -2,4 +2,10 @@
   <h1>{{ title }}</h1>
   <button routerLink="/movements/create">Nuevo</button>
 </div>
-<app-dynamic-table [trackByKey]="'id'" [columns]="movementColumns" [data]="movementData()"></app-dynamic-table>
+<app-dynamic-table
+  [trackByKey]="'id'"
+  [columns]="movementColumns"
+  [data]="movementData()"
+  (onEdit)="onEdit($event)"
+  (onDelete)="onDelete($event)"
+></app-dynamic-table>
