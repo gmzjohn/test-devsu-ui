@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ClientService } from '../../services/client.service';
-import { BackButton } from '../../components/back-button/back-button';
+import { ClientService } from '../../../services/client.service';
+import { BackButton } from '../../../components/back-button/back-button';
 
 @Component({
   selector: 'app-create-client',
