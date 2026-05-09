@@ -1,0 +1,36 @@
+<div class="header-container">
+  <h2>Editar Cuenta</h2>
+  <app-back-button></app-back-button>
+</div>
+<form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="account_number">Número de cuenta</label>
+    <input id="account_number" type="number" formControlName="account_number" placeholder="Ingrese el número de cuenta">
+    @if (accountForm.get('account_number')?.invalid && accountForm.get('account_number')?.touched) {
+    <div class="error">El número de cuenta es requerido.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="account_type">Tipo de cuenta</label>
+    <input id="account_type" type="text" formControlName="account_type" placeholder="Ingrese el tipo de cuenta">
+    @if (accountForm.get('account_type')?.invalid && accountForm.get('account_type')?.touched) {
+    <div class="error">El tipo de cuenta es requerido.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="balance">Balance</label>
+    <input id="balance" type="number" formControlName="balance" placeholder="Ingrese el balance">
+    @if (accountForm.get('balance')?.invalid && accountForm.get('balance')?.touched) {
+    <div class="error">El balance es requerido.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="status">Estado</label>
+    <input id="status" type="checkbox" formControlName="status">
+  </div>
+
+  <button type="submit" [disabled]="!accountForm.valid">Guardar</button>
+</form>

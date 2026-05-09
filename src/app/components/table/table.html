@@ -18,8 +18,8 @@
         </td>
         }
         <td class="actions-cell">
-          <app-edit-button></app-edit-button>
-          <app-delete-button></app-delete-button>
+          <app-edit-button (edit)="onEdit.emit(+row[trackByKey])"></app-edit-button>
+          <app-delete-button (delete)="onDelete.emit(+row[trackByKey])"></app-delete-button>
         </td>
       </tr>
       }

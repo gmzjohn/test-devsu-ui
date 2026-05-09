@@ -25,4 +25,18 @@ export class ClientService {
     };
     this.clients.update((clients) => [...clients, newClient]);
   }
+
+  updateClient(id: number, changes: Omit<Client, 'id'>) {
+    this.clients.update((clients) =>
+      clients.map((c) => (c.id === id ? { ...c, ...changes } : c))
+    );
+  }
+
+  deleteClient(id: number) {
+    this.clients.update((clients) => clients.filter((c) => c.id !== id));
+  }
+
+  getClientById(id: number): Client | undefined {
+    return this.clients().find((c) => c.id === id);
+  }
 }
