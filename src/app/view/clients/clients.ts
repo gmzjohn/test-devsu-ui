@@ -15,14 +15,14 @@ import { Client, ClientService } from '../../services/client.service';
 
 export class Clients {
   private clientService = inject(ClientService)
-  title = 'Clients';
+  title = 'Clientes';
 
   clientColumns: Column<Client>[] = [
     { header: 'ID', accessor: 'id' },
-    { header: 'Name', accessor: 'name' },
-    { header: 'Address', accessor: 'address' },
-    { header: 'Password', accessor: 'password' },
-    { header: 'Status', accessor: 'status' }
+    { header: 'Nombre', accessor: 'name' },
+    { header: 'Dirección', accessor: 'address' },
+    { header: 'Contraseña', accessor: 'password' },
+    { header: 'Estado', accessor: 'status' }
   ];
 
   clientData = this.clientService.getClients();
