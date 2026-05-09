@@ -2,4 +2,4 @@
   <h1>{{ title }}</h1>
   <button routerLink="/accounts/create">Nuevo</button>
 </div>
-<app-dynamic-table [trackByKey]="'id'" [columns]="accountColumns"></app-dynamic-table>
+<app-dynamic-table [trackByKey]="'id'" [columns]="accountColumns" [data]="accountData()"></app-dynamic-table>
