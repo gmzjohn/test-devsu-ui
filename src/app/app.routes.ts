@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { Clients } from './view/clients/clients';
 import { Accounts } from './view/accounts/accounts';
 import { Movements } from './view/movements/movements';
-import { CreateClient } from './view/create-client/create-client';
+import { CreateClient } from './view/clients/create-client/create-client';
 
 export const routes: Routes = [
   {
