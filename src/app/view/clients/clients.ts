@@ -1,17 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
-
-
-export interface Client {
-  id: number;
-  name: string;
-  address: string;
-  password: string;
-  status: boolean;
-}
+import { Client, ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-clients',
@@ -22,6 +14,7 @@ export interface Client {
 })
 
 export class Clients {
+  private clientService = inject(ClientService)
   title = 'Clients';
 
   clientColumns: Column<Client>[] = [
@@ -31,4 +24,6 @@ export class Clients {
     { header: 'Password', accessor: 'password' },
     { header: 'Status', accessor: 'status' }
   ];
+
+  clientData = this.clientService.getClients();
 }
