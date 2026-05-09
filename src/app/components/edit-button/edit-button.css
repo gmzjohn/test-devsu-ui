@@ -1,0 +1,14 @@
+.edit-btn {
+  background-color: transparent;
+  color: blue;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn:hover {
+  opacity: 0.8;
+}
