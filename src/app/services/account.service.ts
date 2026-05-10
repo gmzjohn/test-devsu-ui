@@ -9,6 +9,7 @@ export interface Account {
   accountType: string;
   initialBalance: number;
   status: boolean;
+  clientId: number;
 }
 
 @Injectable({
@@ -26,12 +27,12 @@ export class AccountService {
     return this.http.get<Account>(`${this.apiUrl}/${id}`);
   }
 
-  addAccount(account: Omit<Account, 'id'>): Observable<Account> {
-    return this.http.post<Account>(this.apiUrl, account);
+  addAccount(account: Omit<Account, 'id'>, clientId: number): Observable<Account> {
+    return this.http.post<Account>(`${this.apiUrl}?clientId=${clientId}`, account);
   }
 
-  updateAccount(id: number, account: Omit<Account, 'id'>): Observable<Account> {
-    return this.http.put<Account>(`${this.apiUrl}/${id}`, account);
+  updateAccount(id: number, account: Omit<Account, 'id'>, clientId: number): Observable<Account> {
+    return this.http.put<Account>(`${this.apiUrl}/${id}?clientId=${clientId}`, account);
   }
 
   deleteAccount(id: number): Observable<void> {

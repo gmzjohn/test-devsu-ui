@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Movement {
   id: number;
@@ -8,6 +9,7 @@ export interface Movement {
   movementType: string;
   amount: number;
   balance: number;
+  accountId: number;
 }
 
 @Injectable({
@@ -15,7 +17,7 @@ export interface Movement {
 })
 export class MovementService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/movements';
+  private apiUrl = `${environment.apiUrl}/movements`;
 
   getMovements(): Observable<Movement[]> {
     return this.http.get<Movement[]>(this.apiUrl);
@@ -25,12 +27,12 @@ export class MovementService {
     return this.http.get<Movement>(`${this.apiUrl}/${id}`);
   }
 
-  addMovement(movement: Omit<Movement, 'id'>): Observable<Movement> {
-    return this.http.post<Movement>(this.apiUrl, movement);
+  addMovement(movement: Omit<Movement, 'id'>, accountId: number): Observable<Movement> {
+    return this.http.post<Movement>(`${this.apiUrl}?accountId=${accountId}`, movement);
   }
 
-  updateMovement(id: number, movement: Omit<Movement, 'id'>): Observable<Movement> {
-    return this.http.put<Movement>(`${this.apiUrl}/${id}`, movement);
+  updateMovement(id: number, movement: Omit<Movement, 'id'>, accountId: number): Observable<Movement> {
+    return this.http.put<Movement>(`${this.apiUrl}/${id}?accountId=${accountId}`, movement);
   }
 
   deleteMovement(id: number): Observable<void> {
