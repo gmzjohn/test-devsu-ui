@@ -15,21 +15,22 @@ export class CreateAccount {
   private router = inject(Router);
 
   accountForm = new FormGroup({
-    account_number: new FormControl<number | null>(null, [Validators.required]),
-    account_type: new FormControl('', [Validators.required]),
-    balance: new FormControl<number | null>(null, [Validators.required]),
+    accountNumber: new FormControl('', [Validators.required]),
+    accountType: new FormControl('', [Validators.required]),
+    initialBalance: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     status: new FormControl(true, [Validators.required]),
   });
 
   onSubmit() {
     if (this.accountForm.valid) {
       this.accountService.addAccount({
-        account_number: this.accountForm.value.account_number!,
-        account_type: this.accountForm.value.account_type!,
-        balance: this.accountForm.value.balance!,
+        accountNumber: this.accountForm.value.accountNumber!,
+        accountType: this.accountForm.value.accountType!,
+        initialBalance: this.accountForm.value.initialBalance!,
         status: this.accountForm.value.status!,
+      }).subscribe(() => {
+        this.router.navigate(['/accounts']);
       });
-      this.router.navigate(['/accounts']);
     }
   }
 }
