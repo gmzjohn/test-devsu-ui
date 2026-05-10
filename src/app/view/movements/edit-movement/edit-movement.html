@@ -4,6 +4,19 @@
 </div>
 <form [formGroup]="movementForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
+    <label for="accountId">Cuenta</label>
+    <select id="accountId" formControlName="accountId">
+      <option [value]="null" disabled>Seleccione una cuenta</option>
+      @for (account of accounts(); track account.id) {
+        <option [value]="account.id">{{ account.accountNumber }} - {{ account.accountType }}</option>
+      }
+    </select>
+    @if (movementForm.get('accountId')?.invalid && movementForm.get('accountId')?.touched) {
+      <div class="error">La cuenta es requerida.</div>
+    }
+  </div>
+
+  <div class="form-group">
     <label for="date">Fecha</label>
     <input id="date" type="date" formControlName="date">
     @if (movementForm.get('date')?.invalid && movementForm.get('date')?.touched) {
