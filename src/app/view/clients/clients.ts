@@ -20,7 +20,11 @@ export class Clients {
   clientColumns: Column<Client>[] = [
     { header: 'ID', accessor: 'id' },
     { header: 'Nombre', accessor: 'name' },
+    { header: 'Género', accessor: 'gender' },
+    { header: 'Edad', accessor: 'age' },
+    { header: 'Identificación', accessor: 'identification' },
     { header: 'Dirección', accessor: 'address' },
+    { header: 'Teléfono', accessor: 'phoneNumber' },
     { header: 'Contraseña', accessor: 'password' },
     { header: 'Estado', accessor: 'status' },
   ];
