@@ -3,7 +3,11 @@ import { Injectable, signal } from '@angular/core';
 export interface Client {
   id: number;
   name: string;
+  gender: string;
+  age: number;
+  identification: string;
   address: string;
+  phoneNumber: string;
   password: string;
   status: boolean;
 }
