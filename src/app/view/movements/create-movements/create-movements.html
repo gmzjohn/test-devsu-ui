@@ -26,7 +26,11 @@
 
   <div class="form-group">
     <label for="movementType">Tipo de movimiento</label>
-    <input id="movementType" type="text" formControlName="movementType" placeholder="Ingrese el tipo de movimiento">
+    <select id="movementType" formControlName="movementType">
+      <option value="" disabled>Seleccione el tipo de movimiento</option>
+      <option value="Debit">Débito</option>
+      <option value="Credit">Crédito</option>
+    </select>
     @if (movementForm.get('movementType')?.invalid && movementForm.get('movementType')?.touched) {
       <div class="error">El tipo de movimiento es requerido.</div>
     }
