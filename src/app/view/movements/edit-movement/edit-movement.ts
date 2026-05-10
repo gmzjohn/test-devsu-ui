@@ -26,7 +26,6 @@ export class EditMovement implements OnInit {
     date: new FormControl('', [Validators.required]),
     movementType: new FormControl('', [Validators.required]),
     amount: new FormControl<number | null>(null, [Validators.required]),
-    balance: new FormControl<number | null>(null, [Validators.required]),
   });
 
   ngOnInit() {
@@ -40,7 +39,6 @@ export class EditMovement implements OnInit {
         date: movement.date,
         movementType: movement.movementType,
         amount: movement.amount,
-        balance: movement.balance,
       });
     });
   }
@@ -52,7 +50,7 @@ export class EditMovement implements OnInit {
         date: this.movementForm.value.date!,
         movementType: this.movementForm.value.movementType!,
         amount: this.movementForm.value.amount!,
-        balance: this.movementForm.value.balance!,
+        balance: 0,
         accountId,
       }, accountId).subscribe(() => {
         this.router.navigate(['/movements']);
