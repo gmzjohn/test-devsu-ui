@@ -19,7 +19,11 @@ export class EditClient implements OnInit {
 
   clientForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
+    age: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
+    identification: new FormControl('', [Validators.required]),
     address: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     status: new FormControl(true, [Validators.required]),
   });
@@ -30,7 +34,11 @@ export class EditClient implements OnInit {
     if (client) {
       this.clientForm.setValue({
         name: client.name,
+        gender: client.gender,
+        age: client.age,
+        identification: client.identification,
         address: client.address,
+        phoneNumber: client.phoneNumber,
         password: client.password,
         status: client.status,
       });
@@ -41,7 +49,11 @@ export class EditClient implements OnInit {
     if (this.clientForm.valid) {
       this.clientService.updateClient(this.id, {
         name: this.clientForm.value.name!,
+        gender: this.clientForm.value.gender!,
+        age: this.clientForm.value.age!,
+        identification: this.clientForm.value.identification!,
         address: this.clientForm.value.address!,
+        phoneNumber: this.clientForm.value.phoneNumber!,
         password: this.clientForm.value.password!,
         status: this.clientForm.value.status!,
       });

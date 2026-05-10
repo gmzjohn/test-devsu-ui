@@ -7,7 +7,36 @@
     <label for="name">Nombre</label>
     <input id="name" type="text" formControlName="name" placeholder="Ingrese el nombre">
     @if (clientForm.get('name')?.invalid && clientForm.get('name')?.touched) {
-    <div class="error">El nombre es requerido.</div>
+      <div class="error">El nombre es requerido.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="gender">Género</label>
+    <select id="gender" formControlName="gender">
+      <option value="" disabled>Seleccione el género</option>
+      <option value="Masculino">Masculino</option>
+      <option value="Femenino">Femenino</option>
+      <option value="Otro">Otro</option>
+    </select>
+    @if (clientForm.get('gender')?.invalid && clientForm.get('gender')?.touched) {
+      <div class="error">El género es requerido.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="age">Edad</label>
+    <input id="age" type="number" formControlName="age" placeholder="Ingrese la edad" min="0">
+    @if (clientForm.get('age')?.invalid && clientForm.get('age')?.touched) {
+      <div class="error">La edad es requerida y debe ser mayor a 0.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="identification">Identificación</label>
+    <input id="identification" type="text" formControlName="identification" placeholder="Ingrese la identificación">
+    @if (clientForm.get('identification')?.invalid && clientForm.get('identification')?.touched) {
+      <div class="error">La identificación es requerida.</div>
     }
   </div>
 
@@ -15,7 +44,15 @@
     <label for="address">Dirección</label>
     <input id="address" type="text" formControlName="address" placeholder="Ingrese la dirección">
     @if (clientForm.get('address')?.invalid && clientForm.get('address')?.touched) {
-    <div class="error">La dirección es requerida.</div>
+      <div class="error">La dirección es requerida.</div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="phoneNumber">Teléfono</label>
+    <input id="phoneNumber" type="text" formControlName="phoneNumber" placeholder="Ingrese el número de teléfono">
+    @if (clientForm.get('phoneNumber')?.invalid && clientForm.get('phoneNumber')?.touched) {
+      <div class="error">El teléfono es requerido.</div>
     }
   </div>
 
@@ -23,7 +60,7 @@
     <label for="password">Contraseña</label>
     <input id="password" type="password" formControlName="password" placeholder="Ingrese la contraseña">
     @if (clientForm.get('password')?.invalid && clientForm.get('password')?.touched) {
-    <div class="error">La contraseña es requerida.</div>
+      <div class="error">La contraseña es requerida.</div>
     }
   </div>
 
