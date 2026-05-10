@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
@@ -12,7 +12,7 @@ import { Movement, MovementService } from '../../services/movement.service';
   templateUrl: './movements.html',
   styleUrl: './movements.css',
 })
-export class Movements {
+export class Movements implements OnInit {
   private movementService = inject(MovementService);
   private router = inject(Router);
   title = 'Movimientos';
@@ -20,18 +20,30 @@ export class Movements {
   movementColumns: Column<Movement>[] = [
     { header: 'ID', accessor: 'id' },
     { header: 'Fecha', accessor: 'date' },
-    { header: 'Tipo de movimiento', accessor: 'movement_type' },
+    { header: 'Tipo de movimiento', accessor: 'movementType' },
     { header: 'Monto', accessor: 'amount' },
     { header: 'Balance', accessor: 'balance' },
   ];
 
-  movementData = this.movementService.getMovements();
+  movementData = signal<Movement[]>([]);
+
+  ngOnInit() {
+    this.loadMovements();
+  }
+
+  loadMovements() {
+    this.movementService.getMovements().subscribe(movements => {
+      this.movementData.set(movements);
+    });
+  }
 
   onEdit(id: number) {
     this.router.navigate(['/movements/edit', id]);
   }
 
   onDelete(id: number) {
-    this.movementService.deleteMovement(id);
+    this.movementService.deleteMovement(id).subscribe(() => {
+      this.loadMovements();
+    });
   }
 }
