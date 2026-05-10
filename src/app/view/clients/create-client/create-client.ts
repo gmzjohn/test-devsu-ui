@@ -36,8 +36,9 @@ export class CreateClient {
         phoneNumber: this.clientForm.value.phoneNumber!,
         password: this.clientForm.value.password!,
         status: this.clientForm.value.status!,
+      }).subscribe(() => {
+        this.router.navigate(['/clients']);
       });
-      this.router.navigate(['/clients']);
     }
   }
 }
