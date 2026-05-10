@@ -1,4 +1,6 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Client {
   id: number;
@@ -16,31 +18,26 @@ export interface Client {
   providedIn: 'root',
 })
 export class ClientService {
-  private clients = signal<Client[]>([]);
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:8080/api/clients';
 
-  getClients() {
-    return this.clients.asReadonly();
+  getClients(): Observable<Client[]> {
+    return this.http.get<Client[]>(this.apiUrl);
   }
 
-  addClient(client: Omit<Client, 'id'>) {
-    const newClient = {
-      ...client,
-      id: this.clients().length + 1,
-    };
-    this.clients.update((clients) => [...clients, newClient]);
+  getClientById(id: number): Observable<Client> {
+    return this.http.get<Client>(`${this.apiUrl}/${id}`);
   }
 
-  updateClient(id: number, changes: Omit<Client, 'id'>) {
-    this.clients.update((clients) =>
-      clients.map((c) => (c.id === id ? { ...c, ...changes } : c))
-    );
+  addClient(client: Omit<Client, 'id'>): Observable<Client> {
+    return this.http.post<Client>(this.apiUrl, client);
   }
 
-  deleteClient(id: number) {
-    this.clients.update((clients) => clients.filter((c) => c.id !== id));
+  updateClient(id: number, client: Omit<Client, 'id'>): Observable<Client> {
+    return this.http.put<Client>(`${this.apiUrl}/${id}`, client);
   }
 
-  getClientById(id: number): Client | undefined {
-    return this.clients().find((c) => c.id === id);
+  deleteClient(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

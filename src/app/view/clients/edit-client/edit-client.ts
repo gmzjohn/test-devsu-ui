@@ -30,8 +30,7 @@ export class EditClient implements OnInit {
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    const client = this.clientService.getClientById(this.id);
-    if (client) {
+    this.clientService.getClientById(this.id).subscribe(client => {
       this.clientForm.setValue({
         name: client.name,
         gender: client.gender,
@@ -42,7 +41,7 @@ export class EditClient implements OnInit {
         password: client.password,
         status: client.status,
       });
-    }
+    });
   }
 
   onSubmit() {
@@ -56,8 +55,9 @@ export class EditClient implements OnInit {
         phoneNumber: this.clientForm.value.phoneNumber!,
         password: this.clientForm.value.password!,
         status: this.clientForm.value.status!,
+      }).subscribe(() => {
+        this.router.navigate(['/clients']);
       });
-      this.router.navigate(['/clients']);
     }
   }
 }
