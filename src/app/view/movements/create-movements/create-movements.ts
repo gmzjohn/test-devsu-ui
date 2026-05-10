@@ -16,7 +16,7 @@ export class CreateMovements {
 
   movementForm = new FormGroup({
     date: new FormControl('', [Validators.required]),
-    movement_type: new FormControl('', [Validators.required]),
+    movementType: new FormControl('', [Validators.required]),
     amount: new FormControl<number | null>(null, [Validators.required]),
     balance: new FormControl<number | null>(null, [Validators.required]),
   });
@@ -25,11 +25,12 @@ export class CreateMovements {
     if (this.movementForm.valid) {
       this.movementService.addMovement({
         date: this.movementForm.value.date!,
-        movement_type: this.movementForm.value.movement_type!,
+        movementType: this.movementForm.value.movementType!,
         amount: this.movementForm.value.amount!,
         balance: this.movementForm.value.balance!,
+      }).subscribe(() => {
+        this.router.navigate(['/movements']);
       });
-      this.router.navigate(['/movements']);
     }
   }
 }

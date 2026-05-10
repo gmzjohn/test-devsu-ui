@@ -1,9 +1,11 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Movement {
   id: number;
   date: string;
-  movement_type: string;
+  movementType: string;
   amount: number;
   balance: number;
 }
@@ -12,31 +14,26 @@ export interface Movement {
   providedIn: 'root',
 })
 export class MovementService {
-  private movements = signal<Movement[]>([]);
+  private http = inject(HttpClient);
+  private apiUrl = 'http://localhost:8080/api/movements';
 
-  getMovements() {
-    return this.movements.asReadonly();
+  getMovements(): Observable<Movement[]> {
+    return this.http.get<Movement[]>(this.apiUrl);
   }
 
-  addMovement(movement: Omit<Movement, 'id'>) {
-    const newMovement = {
-      ...movement,
-      id: this.movements().length + 1,
-    };
-    this.movements.update((movements) => [...movements, newMovement]);
+  getMovementById(id: number): Observable<Movement> {
+    return this.http.get<Movement>(`${this.apiUrl}/${id}`);
   }
 
-  updateMovement(id: number, changes: Omit<Movement, 'id'>) {
-    this.movements.update((movements) =>
-      movements.map((m) => (m.id === id ? { ...m, ...changes } : m))
-    );
+  addMovement(movement: Omit<Movement, 'id'>): Observable<Movement> {
+    return this.http.post<Movement>(this.apiUrl, movement);
   }
 
-  deleteMovement(id: number) {
-    this.movements.update((movements) => movements.filter((m) => m.id !== id));
+  updateMovement(id: number, movement: Omit<Movement, 'id'>): Observable<Movement> {
+    return this.http.put<Movement>(`${this.apiUrl}/${id}`, movement);
   }
 
-  getMovementById(id: number): Movement | undefined {
-    return this.movements().find((m) => m.id === id);
+  deleteMovement(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
