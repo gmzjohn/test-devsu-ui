@@ -18,34 +18,34 @@ export class EditAccount implements OnInit {
   private id!: number;
 
   accountForm = new FormGroup({
-    account_number: new FormControl<number | null>(null, [Validators.required]),
-    account_type: new FormControl('', [Validators.required]),
-    balance: new FormControl<number | null>(null, [Validators.required]),
+    accountNumber: new FormControl('', [Validators.required]),
+    accountType: new FormControl('', [Validators.required]),
+    initialBalance: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
     status: new FormControl(true, [Validators.required]),
   });
 
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    const account = this.accountService.getAccountById(this.id);
-    if (account) {
+    this.accountService.getAccountById(this.id).subscribe(account => {
       this.accountForm.setValue({
-        account_number: account.account_number,
-        account_type: account.account_type,
-        balance: account.balance,
+        accountNumber: account.accountNumber,
+        accountType: account.accountType,
+        initialBalance: account.initialBalance,
         status: account.status,
       });
-    }
+    });
   }
 
   onSubmit() {
     if (this.accountForm.valid) {
       this.accountService.updateAccount(this.id, {
-        account_number: this.accountForm.value.account_number!,
-        account_type: this.accountForm.value.account_type!,
-        balance: this.accountForm.value.balance!,
+        accountNumber: this.accountForm.value.accountNumber!,
+        accountType: this.accountForm.value.accountType!,
+        initialBalance: this.accountForm.value.initialBalance!,
         status: this.accountForm.value.status!,
+      }).subscribe(() => {
+        this.router.navigate(['/accounts']);
       });
-      this.router.navigate(['/accounts']);
     }
   }
 }

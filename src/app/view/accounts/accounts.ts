@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { Column } from '../../components/table/types';
@@ -11,26 +11,38 @@ import { Account, AccountService } from '../../services/account.service';
   templateUrl: './accounts.html',
   styleUrl: './accounts.css',
 })
-export class Accounts {
+export class Accounts implements OnInit {
   private accountService = inject(AccountService);
   private router = inject(Router);
   title = 'Cuentas';
 
   accountColumns: Column<Account>[] = [
     { header: 'ID', accessor: 'id' },
-    { header: 'Número de cuenta', accessor: 'account_number' },
-    { header: 'Tipo de cuenta', accessor: 'account_type' },
-    { header: 'Balance', accessor: 'balance' },
+    { header: 'Número de cuenta', accessor: 'accountNumber' },
+    { header: 'Tipo de cuenta', accessor: 'accountType' },
+    { header: 'Balance inicial', accessor: 'initialBalance' },
     { header: 'Estado', accessor: 'status' },
   ];
 
-  accountData = this.accountService.getAccounts();
+  accountData = signal<Account[]>([]);
+
+  ngOnInit() {
+    this.loadAccounts();
+  }
+
+  loadAccounts() {
+    this.accountService.getAccounts().subscribe(accounts => {
+      this.accountData.set(accounts);
+    });
+  }
 
   onEdit(id: number) {
     this.router.navigate(['/accounts/edit', id]);
   }
 
   onDelete(id: number) {
-    this.accountService.deleteAccount(id);
+    this.accountService.deleteAccount(id).subscribe(() => {
+      this.loadAccounts();
+    });
   }
 }

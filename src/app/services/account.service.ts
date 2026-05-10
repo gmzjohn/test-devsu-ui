@@ -1,10 +1,13 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface Account {
   id: number;
-  account_number: number;
-  account_type: string;
-  balance: number;
+  accountNumber: string;
+  accountType: string;
+  initialBalance: number;
   status: boolean;
 }
 
@@ -12,31 +15,26 @@ export interface Account {
   providedIn: 'root',
 })
 export class AccountService {
-  private accounts = signal<Account[]>([]);
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/accounts`;
 
-  getAccounts() {
-    return this.accounts.asReadonly();
+  getAccounts(): Observable<Account[]> {
+    return this.http.get<Account[]>(this.apiUrl);
   }
 
-  addAccount(account: Omit<Account, 'id'>) {
-    const newAccount = {
-      ...account,
-      id: this.accounts().length + 1,
-    };
-    this.accounts.update((accounts) => [...accounts, newAccount]);
+  getAccountById(id: number): Observable<Account> {
+    return this.http.get<Account>(`${this.apiUrl}/${id}`);
   }
 
-  updateAccount(id: number, changes: Omit<Account, 'id'>) {
-    this.accounts.update((accounts) =>
-      accounts.map((a) => (a.id === id ? { ...a, ...changes } : a))
-    );
+  addAccount(account: Omit<Account, 'id'>): Observable<Account> {
+    return this.http.post<Account>(this.apiUrl, account);
   }
 
-  deleteAccount(id: number) {
-    this.accounts.update((accounts) => accounts.filter((a) => a.id !== id));
+  updateAccount(id: number, account: Omit<Account, 'id'>): Observable<Account> {
+    return this.http.put<Account>(`${this.apiUrl}/${id}`, account);
   }
 
-  getAccountById(id: number): Account | undefined {
-    return this.accounts().find((a) => a.id === id);
+  deleteAccount(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
