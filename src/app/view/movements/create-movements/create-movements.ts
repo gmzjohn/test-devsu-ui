@@ -18,6 +18,7 @@ export class CreateMovements implements OnInit {
   private router = inject(Router);
 
   accounts = signal<Account[]>([]);
+  errorMessage = signal<string | null>(null);
 
   movementForm = new FormGroup({
     accountId: new FormControl<number | null>(null, [Validators.required]),
@@ -34,6 +35,7 @@ export class CreateMovements implements OnInit {
 
   onSubmit() {
     if (this.movementForm.valid) {
+      this.errorMessage.set(null);
       const accountId = this.movementForm.value.accountId!;
       this.movementService.addMovement({
         date: this.movementForm.value.date!,
@@ -41,8 +43,16 @@ export class CreateMovements implements OnInit {
         amount: this.movementForm.value.amount!,
         balance: 0,
         accountId,
-      }, accountId).subscribe(() => {
-        this.router.navigate(['/movements']);
+      }, accountId).subscribe({
+        next: () => this.router.navigate(['/movements']),
+        error: (err) => {
+          try {
+            const body = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+            this.errorMessage.set(body?.message);
+          } catch {
+            this.errorMessage.set('Error.');
+          }
+        },
       });
     }
   }

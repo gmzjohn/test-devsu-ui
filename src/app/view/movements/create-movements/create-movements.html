@@ -44,5 +44,9 @@
     }
   </div>
 
+  @if (errorMessage()) {
+    <div class="error-banner">{{ errorMessage() }}</div>
+  }
+
   <button type="submit" [disabled]="!movementForm.valid">Guardar</button>
 </form>
