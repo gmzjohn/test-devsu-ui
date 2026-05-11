@@ -1,4 +1,13 @@
 <div class="table-container">
+  @if (searchKey) {
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Buscar..."
+    />
+  </div>
+  }
   <table class="dynamic-table">
     <thead>
       <tr>
@@ -10,7 +19,7 @@
     </thead>
 
     <tbody>
-      @for (row of data; track row[trackByKey]) {
+      @for (row of filteredData; track row[trackByKey]) {
       <tr>
         @for (column of columns; track column.accessor) {
         <td>
