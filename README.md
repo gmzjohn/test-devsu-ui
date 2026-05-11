@@ -1,59 +1,73 @@
-# TestDevsuUi
+# Test Devsu UI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.10.
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-## Development server
+A modern web interface for managing clients, accounts and movements. This project serves as the frontend client for the Test Devsu BE.
 
-To start a local development server, run:
+## 🚀 Features
+
+- **Client, Accounts, Movements Management**: Create, update, and manage user profiles.
+- **Responsive Design**: Optimized for various screen sizes.
+- **Real-time Updates**: Auto-reload during development.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Angular](https://angular.io/)
+- **Language**: TypeScript
+- **Containerization**: Podman / Docker
+
+## 🏁 Getting Started
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Node.js
+- npm or yarn
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Development Server
+
+To start a local development server:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Once running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+## 📦 Code Generation
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Scaffold new parts of the application using the Angular CLI.
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+**Generate a Component:**
 
 ```bash
-ng generate --help
+ng generate component components/component-name
 ```
 
-## Building
-
-To build the project run:
+**Generate a View:**
 
 ```bash
-ng build
+ng generate component view/component-name
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🐳 Containerization (Podman)
 
-## Running unit tests
+You can run the application inside a container using Podman.
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**1. Build the image**
+
+VERSION: example 1.0.0
 
 ```bash
-ng test
+podman build -t test-devsu-ui:{VERSION} .
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+**Run with interactive shell:**
+Replace `{VERSION}` with the desired version tag (e.g., `1.0.0`).
 
 ```bash
-ng e2e
+podman run -it --rm -p 4200:4200 -v .:/app:Z --userns=keep-id test-devsu-ui:{VERSION} /bin/sh
 ```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
