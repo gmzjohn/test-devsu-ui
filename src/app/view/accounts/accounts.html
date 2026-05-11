@@ -6,6 +6,7 @@
   [trackByKey]="'id'"
   [columns]="accountColumns"
   [data]="accountData()"
+  [searchKey]="'accountNumber'"
   (onEdit)="onEdit($event)"
   (onDelete)="onDelete($event)"
 ></app-dynamic-table>
