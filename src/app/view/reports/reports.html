@@ -1,0 +1,54 @@
+<div class="reports-container">
+  <h1>Reportes</h1>
+  <p class="subtitle">Genera un reporte PDF de credito y debito para un rango de fecha.</p>
+
+  <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="accountNumber">Numero de cuenta</label>
+      <input
+        id="accountNumber"
+        type="text"
+        formControlName="accountNumber"
+        placeholder="Introduzca su numero de cuenta">
+      @if (reportForm.get('accountNumber')?.invalid && reportForm.get('accountNumber')?.touched) {
+        <div class="error">Numero de cuenta requerido.</div>
+      }
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label for="startDate">Fecha Inicial</label>
+        <input
+          id="startDate"
+          type="date"
+          formControlName="startDate">
+        @if (reportForm.get('startDate')?.invalid && reportForm.get('startDate')?.touched) {
+          <div class="error">Fecha Inicial requerida</div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="endDate">Fecha Final</label>
+        <input
+          id="endDate"
+          type="date"
+          formControlName="endDate">
+        @if (reportForm.get('endDate')?.invalid && reportForm.get('endDate')?.touched) {
+          <div class="error">Fecha Final requerida</div>
+        }
+      </div>
+    </div>
+
+    @if (error()) {
+      <div class="error-banner">{{ error() }}</div>
+    }
+
+    <button type="submit" [disabled]="!reportForm.valid || loading()">
+      @if (loading()) {
+        Generando...
+      } @else {
+        Genera Reporte PDF
+      }
+    </button>
+  </form>
+</div>

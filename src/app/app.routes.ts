@@ -8,6 +8,7 @@ import { EditAccount } from './view/accounts/edit-account/edit-account';
 import { Movements } from './view/movements/movements';
 import { CreateMovements } from './view/movements/create-movements/create-movements';
 import { EditMovement } from './view/movements/edit-movement/edit-movement';
+import { Reports } from './view/reports/reports';
 
 export const routes: Routes = [
   { path: 'clients', component: Clients },
@@ -19,4 +20,5 @@ export const routes: Routes = [
   { path: 'movements', component: Movements },
   { path: 'movements/create', component: CreateMovements },
   { path: 'movements/edit/:id', component: EditMovement },
+  { path: 'reports', component: Reports },
 ];
