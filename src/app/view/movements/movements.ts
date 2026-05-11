@@ -19,6 +19,7 @@ export class Movements implements OnInit {
 
   movementColumns: Column<Movement>[] = [
     { header: 'ID', accessor: 'id' },
+    { header: 'Cuenta', accessor: 'accountId' },
     { header: 'Fecha', accessor: 'date' },
     { header: 'Tipo de movimiento', accessor: 'movementType' },
     { header: 'Monto', accessor: 'amount' },

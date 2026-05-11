@@ -18,6 +18,7 @@ export class Accounts implements OnInit {
 
   accountColumns: Column<Account>[] = [
     { header: 'ID', accessor: 'id' },
+    { header: 'Cliente', accessor: 'clientId' },
     { header: 'Número de cuenta', accessor: 'accountNumber' },
     { header: 'Tipo de cuenta', accessor: 'accountType' },
     { header: 'Balance inicial', accessor: 'initialBalance' },
