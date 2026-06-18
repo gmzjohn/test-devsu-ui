@@ -1,9 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
 import { Movement, MovementService } from '../../services/movement.service';
+import { Account, AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-movements',
@@ -14,8 +16,11 @@ import { Movement, MovementService } from '../../services/movement.service';
 })
 export class Movements implements OnInit {
   private movementService = inject(MovementService);
+  private accountService = inject(AccountService);
   private router = inject(Router);
   title = 'Movimientos';
+
+  private accountMap = new Map<number, Account>();
 
   movementColumns: Column<Movement>[] = [
     { header: 'ID', accessor: 'id' },

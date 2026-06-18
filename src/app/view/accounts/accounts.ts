@@ -1,9 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
+import { forkJoin } from 'rxjs';
 import { Column } from '../../components/table/types';
 import { Table } from '../../components/table/table';
 import { Account, AccountService } from '../../services/account.service';
+import { Client, ClientService } from '../../services/client.service';
 
 @Component({
   selector: 'app-accounts',
@@ -13,12 +15,22 @@ import { Account, AccountService } from '../../services/account.service';
 })
 export class Accounts implements OnInit {
   private accountService = inject(AccountService);
+  private clientService = inject(ClientService);
   private router = inject(Router);
   title = 'Cuentas';
 
+  private clientMap = new Map<number, Client>();
+
   accountColumns: Column<Account>[] = [
     { header: 'ID', accessor: 'id' },
-    { header: 'Cliente', accessor: 'clientId' },
+    {
+      header: 'Cliente',
+      accessor: 'clientId',
+      render: (row) => {
+        const client = this.clientMap.get(row.clientId);
+        return client ? client.name : String(row.clientId);
+      },
+    },
     { header: 'Número de cuenta', accessor: 'accountNumber' },
     { header: 'Tipo de cuenta', accessor: 'accountType' },
     { header: 'Balance inicial', accessor: 'initialBalance' },
@@ -32,7 +44,11 @@ export class Accounts implements OnInit {
   }
 
   loadAccounts() {
-    this.accountService.getAccounts().subscribe(accounts => {
+    forkJoin({
+      accounts: this.accountService.getAccounts(),
+      clients: this.clientService.getClients(),
+    }).subscribe(({ accounts, clients }) => {
+      this.clientMap = new Map(clients.map(c => [c.id, c]));
       this.accountData.set(accounts);
     });
   }

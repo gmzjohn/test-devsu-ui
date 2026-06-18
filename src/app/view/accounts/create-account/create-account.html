@@ -5,7 +5,7 @@
 <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="clientId">Cliente</label>
-    <select id="clientId" formControlName="clientId">
+    <select id="clientId" formControlName="clientId" class="test">
       <option [value]="null" disabled>Seleccione un cliente</option>
       @for (client of clients(); track client.id) {
         <option [value]="client.id">{{ client.name }} ({{ client.identification }})</option>

@@ -25,7 +25,7 @@ export class Clients implements OnInit {
     { header: 'Identificación', accessor: 'identification' },
     { header: 'Dirección', accessor: 'address' },
     { header: 'Teléfono', accessor: 'phoneNumber' },
-    { header: 'Contraseña', accessor: 'password' },
+    // { header: 'Contraseña', accessor: 'password' },
     { header: 'Estado', accessor: 'status' },
   ];
 

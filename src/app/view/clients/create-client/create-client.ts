@@ -34,7 +34,7 @@ export class CreateClient {
         identification: this.clientForm.value.identification!,
         address: this.clientForm.value.address!,
         phoneNumber: this.clientForm.value.phoneNumber!,
-        password: this.clientForm.value.password!,
+        password: btoa(this.clientForm.value.password!),
         status: this.clientForm.value.status!,
       }).subscribe(() => {
         this.router.navigate(['/clients']);

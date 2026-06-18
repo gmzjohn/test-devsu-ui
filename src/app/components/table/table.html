@@ -14,7 +14,7 @@
         @for (column of columns; track column.accessor) {
         <th>{{ column.header }}</th>
         }
-        <th>Actions</th>
+        <th>Acciones</th>
       </tr>
     </thead>
 
@@ -23,7 +23,7 @@
       <tr>
         @for (column of columns; track column.accessor) {
         <td>
-          {{ row[column.accessor] }}
+          {{ column.render ? column.render(row) : row[column.accessor] }}
         </td>
         }
         <td class="actions-cell">
