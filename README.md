@@ -1,9 +1,9 @@
-# Test Devsu UI
+# My Test Banking UI
 
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-A modern web interface for managing clients, accounts and movements. This project serves as the frontend client for the Test Devsu BE.
+This is basically part of a project that I am doing by myself to practice software development. I plan to implement the whole software cycle here. That's it for now. I believe I will keep updating in the future.
 
 ## 🚀 Features
 
@@ -53,9 +53,9 @@ ng generate component components/component-name
 ng generate component view/component-name
 ```
 
-## 🐳 Containerization (Podman)
+## 🐳 Containerization
 
-You can run the application inside a container using Podman.
+You can run the application inside a container using Docker/Podman.
 
 **1. Build the image**
 
